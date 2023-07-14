@@ -1,4 +1,6 @@
+import { useState } from "react";
 import MovieListItem from "./MovieListItem";
+import SelectListGenre from "./SelectListGenre";
 const movieData = [
   {
     id: 1,
@@ -87,11 +89,25 @@ const distinctGenres = movieData
   .filter((genre, index, array) => array.indexOf(genre) === index);
 
 function MovieList() {
+  //Hook to track the selected genres
+  const [genre, setGenre] = useState("");
+  const filteredMovieData =
+    genre === ""
+      ? movieData
+      : movieData.filter((movie) => movie.genre === genre);
+  const selectHandler = (genre) => {
+    setGenre(genre);
+  };
   return (
     <div>
-      {movieData.map((movie) => {
+      <SelectListGenre
+        genreChangeHandler={selectHandler}
+        genres={distinctGenres}
+      ></SelectListGenre>
+      {filteredMovieData.map((movie) => {
         return (
           <MovieListItem
+            key={movie.id}
             id={movie.id}
             title={movie.title}
             year={movie.year}
