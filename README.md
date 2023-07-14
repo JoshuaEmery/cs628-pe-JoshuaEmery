@@ -13,6 +13,32 @@ In this assignment I used create-react-app to generated a new react application.
 3. SmallHeading - H3 based component
 4. Description - P based component
 
+-- Initial Setup:
+
+![](pe01/images/1.InitialTesting.png)
+
+-- Components Working
+
+![](pe01/images/2.ComponentsWorking.png)
+
+-- Adding More
+
+![](pe01/images/3.AddingMoreToResume.png)
+
+-- Output
+
+![](pe01/images/4.Output.png)
+
+-- Small Heading
+
+![](pe01/images/5.SmallHeading.png)
+
+-- Resume
+
+![](pe01/images/6.Resume.png)
+
 ## Output
 
-The output is displayed below.
+The output final output is displayed below:
+
+![](pe01/images/7.FinalOutput.png)
