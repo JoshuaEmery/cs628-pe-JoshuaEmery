@@ -37,7 +37,12 @@ function MovieList() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const selectClickHandler = (genre: string) => {
     console.log(genre);
+    setSelectedGenre(genre);
   };
+  // Filter movies based on the selected genre
+  const filteredMovies = selectedGenre
+    ? MovieData.filter((movie) => movie.Genre === selectedGenre)
+    : MovieData;
   return (
     <>
       <h1>Movie List</h1>
@@ -45,7 +50,7 @@ function MovieList() {
         Genres={distinctGenres}
         onSelect={selectClickHandler}
       ></MovieSelectList>
-      {MovieData.map((movie) => {
+      {filteredMovies.map((movie) => {
         return (
           <MovieListItem
             key={movie.Id}

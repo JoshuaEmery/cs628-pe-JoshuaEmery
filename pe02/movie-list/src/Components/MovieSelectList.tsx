@@ -14,6 +14,7 @@ function MovieSelectList(props: MovieListItemProps) {
       {props.Genres.map((genre) => {
         return <option value={genre}>{genre}</option>;
       })}
+      <option value="">No Filter</option>
     </select>
   );
 }
