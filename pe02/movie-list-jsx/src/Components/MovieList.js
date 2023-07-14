@@ -79,6 +79,13 @@ const movieData = [
     genre: "drama",
   },
 ];
+//get the distinct genres
+//first we use the map function to get only the genres from the list
+//then we use filter to remove duplicates
+const distinctGenres = movieData
+  .map((movie) => movie.genre)
+  .filter((genre, index, array) => array.indexOf(genre) === index);
+
 function MovieList() {
   return (
     <div>
