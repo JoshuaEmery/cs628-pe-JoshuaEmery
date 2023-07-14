@@ -1,0 +1,13 @@
+.card {
+  background-color: #fff;
+  border-radius: 5px;
+  display: inline-block;
+  height: 250px;
+  margin: 2rem;
+  position: relative;
+  width: 25%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  /* need to make set height regardless of content */
+  overflow: hidden;
+}
