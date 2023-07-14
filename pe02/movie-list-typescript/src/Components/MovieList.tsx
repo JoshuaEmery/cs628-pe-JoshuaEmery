@@ -50,17 +50,20 @@ function MovieList() {
         Genres={distinctGenres}
         onSelect={selectClickHandler}
       ></MovieSelectList>
-      {filteredMovies.map((movie) => {
-        return (
-          <MovieListItem
-            key={movie.Id}
-            Year={movie.Year}
-            Id={movie.Id}
-            Genre={movie.Genre}
-            Title={movie.Title}
-          ></MovieListItem>
-        );
-      })}
+
+      <div className="row">
+        {filteredMovies.map((movie) => {
+          return (
+            <MovieListItem
+              key={movie.Id}
+              Year={movie.Year}
+              Id={movie.Id}
+              Genre={movie.Genre}
+              Title={movie.Title}
+            ></MovieListItem>
+          );
+        })}
+      </div>
     </>
   );
 }
