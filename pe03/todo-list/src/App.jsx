@@ -91,6 +91,7 @@ function App() {
       setList(todoList.filter((item) => item.status === filter));
     }
   }, [filter]);
+
   function addToList() {
     setList((currentList) => {
       if (newItemDescription === "") return currentList;
@@ -103,6 +104,29 @@ function App() {
       return [...currentList, newItem];
     });
   }
+  function cancelTask(id) {
+    setList((currentList) => {
+      return currentList.map((item) => {
+        if (item.id === id) {
+          item.status = "Cancelled";
+          setFilter("Cancelled");
+        }
+        return item;
+      });
+    });
+  }
+  function completeTask(id) {
+    setList((currentList) => {
+      return currentList.map((item) => {
+        if (item.id === id) {
+          item.status = "Completed";
+          setFilter("Completed");
+        }
+        return item;
+      });
+    });
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -189,10 +213,16 @@ function App() {
                   <td>{item.duedate}</td>
                   <td>{item.status}</td>
                   <td>
-                    <button className="btn btn-outline-success">
+                    <button
+                      onClick={() => completeTask(item.id)}
+                      className="btn btn-outline-success"
+                    >
                       <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
                     </button>
-                    <button className="btn btn-outline-danger">
+                    <button
+                      onClick={() => cancelTask(item.id)}
+                      className="btn btn-outline-danger"
+                    >
                       <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
                     </button>
                   </td>
