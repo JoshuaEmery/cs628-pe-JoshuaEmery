@@ -90,6 +90,7 @@ const distinctGenres = movieData
 
 function MovieList() {
   //Hook to track the selected genres
+  //because state is used for genre
   const [genre, setGenre] = useState("");
   const filteredMovieData =
     genre === ""
