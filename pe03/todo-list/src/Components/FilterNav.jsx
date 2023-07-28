@@ -1,3 +1,6 @@
+//Nav Component
+//This could probably be broken up into another component
+//The button that is currently filtered will appear filled in
 function FilterNav({ filter, setFilter }) {
   return (
     <ul className="nav justify-content-center">

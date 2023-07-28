@@ -1,5 +1,6 @@
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//Component taking a description and a callback function
 function AddBar({ setNewItemDescription, addToList }) {
   return (
     <div className="row">

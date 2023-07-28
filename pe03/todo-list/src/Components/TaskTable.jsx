@@ -1,5 +1,7 @@
 import TaskTableRow from "./TaskTableRow";
-
+//Component that sets up the taple
+//takes in the list as well as a complete and canceltask functions
+//these functions are passed down to the TaskTableRow component with the item from the list
 function TaskTable({ list, completeTask, cancelTask }) {
   return (
     <div className="row">

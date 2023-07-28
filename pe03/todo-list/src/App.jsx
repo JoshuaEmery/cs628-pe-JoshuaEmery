@@ -77,27 +77,39 @@ const todoList = [
 ];
 
 function App() {
+  //the list needs to be tracked by state
   const [list, setList] = useState(todoList);
+  //The description typed in by the user is also tracked by state
   const [newItemDescription, setNewItemDescription] = useState("");
+  //This is used to filter the to do list by status
   const [filter, setFilter] = useState("");
+  //When the filter changes updated the list based on the filter
   useEffect(() => {
+    //Testing
     console.log(`filter changed to ${filter}`);
+    //Empty filter reset the list
     if (filter === "") {
       setList(todoList);
     } else {
+      //fliter the list based on the filter
       setList(todoList.filter((item) => item.status === filter));
     }
   }, [filter]);
-
+  //fnunction that addds a new item to the list
+  //This is only passed to one child so I did not use useCallback
   function addToList() {
     setList((currentList) => {
+      //if the description is empty do not add to the list
       if (newItemDescription === "") return currentList;
       const id = currentList.length + 1;
       const description = newItemDescription;
       const status = "Active";
+      //I am not sure if this is the best way to get the current dat
+      //Using current date for testing
       const created = new Date().toISOString().slice(0, 10);
       const duedate = new Date().toISOString().slice(0, 10);
       const newItem = { id, description, status, created, duedate };
+      //return a new list with everything copied from the current list and the new item
       return [...currentList, newItem];
     });
   }
@@ -120,11 +132,16 @@ function App() {
   //Is this correct?
   const cancelTask = useCallback(
     (id) => {
+      //ok this is a serious arrow function crocodile
+      //setList taking a callback function with the currentList as a parameter
       setList((currentList) => {
+        //we are going to return a new list using the map function to access the items in the list
         return currentList.map((item) => {
+          //inside of this arrow function I have access to the items
           if (item.id === id) {
             item.status = "Cancelled";
           }
+          //return the item to the map function
           return item;
         });
       });
