@@ -1,10 +1,4 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
-import { faSquareMinus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AddBar from "./Components/AddBar";
 import FilterNav from "./Components/FilterNav";
 import TaskTable from "./Components/TaskTable";
@@ -107,28 +101,61 @@ function App() {
       return [...currentList, newItem];
     });
   }
-  function cancelTask(id) {
-    setList((currentList) => {
-      return currentList.map((item) => {
-        if (item.id === id) {
-          item.status = "Cancelled";
-          setFilter("Cancelled");
-        }
-        return item;
+  //because cancelTask is being passed to multiple child components I think it is
+  //better to useCallback? I am not totally sure
+  // function cancelTask(id) {
+  //   setList((currentList) => {
+  //     return currentList.map((item) => {
+  //       if (item.id === id) {
+  //         item.status = "Cancelled";
+  //         setFilter("Cancelled");
+  //       }
+  //       return item;
+  //     });
+  //   });
+  // }
+  //Ok I barely understand this but here goes:
+  //useCallback ensures that when a child component is re-rendered due to a change that
+  //mutiple instances of the same function are not added? I am thinking this saves on memory?
+  //Is this correct?
+  const cancelTask = useCallback(
+    (id) => {
+      setList((currentList) => {
+        return currentList.map((item) => {
+          if (item.id === id) {
+            item.status = "Cancelled";
+          }
+          return item;
+        });
       });
-    });
-  }
-  function completeTask(id) {
-    setList((currentList) => {
-      return currentList.map((item) => {
-        if (item.id === id) {
-          item.status = "Completed";
-          setFilter("Completed");
-        }
-        return item;
+    },
+    [setList]
+  );
+  //same comment as above
+  // function completeTask(id) {
+  //   setList((currentList) => {
+  //     return currentList.map((item) => {
+  //       if (item.id === id) {
+  //         item.status = "Completed";
+  //         setFilter("Completed");
+  //       }
+  //       return item;
+  //     });
+  //   });
+  // }
+  const completeTask = useCallback(
+    (id) => {
+      setList((currentList) => {
+        return currentList.map((item) => {
+          if (item.id === id) {
+            item.status = "Completed";
+          }
+          return item;
+        });
       });
-    });
-  }
+    },
+    [setList]
+  );
 
   return (
     <div className="container">
