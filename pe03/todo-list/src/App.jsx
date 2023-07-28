@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import AddBar from "./Components/AddBar";
+import FilterNav from "./Components/FilterNav";
+import TaskTable from "./Components/TaskTable";
 
 const todoList = [
   {
@@ -132,106 +135,16 @@ function App() {
       <div className="row">
         <h2>To do list</h2>
       </div>
-      <div className="row">
-        <div className="input-group">
-          <input
-            placeholder="Enter a task"
-            className="form-control"
-            type="text"
-            name=""
-            id=""
-            onChange={(event) => setNewItemDescription(event.target.value)}
-          />
-          <button onClick={addToList} className="btn btn-outline-primary">
-            <FontAwesomeIcon icon={faSquarePlus}></FontAwesomeIcon> Add to list
-          </button>
-        </div>
-      </div>
-      <div className="row">
-        <h3>Tasks</h3>
-      </div>
-      <ul className="nav justify-content-center">
-        <li className="nav-item">
-          <button
-            onClick={() => setFilter("Active")}
-            className={
-              "btn btn-outline-primary" + (filter === "Active" ? " active" : "")
-            }
-          >
-            Active
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            onClick={() => setFilter("Completed")}
-            className={
-              "btn btn-outline-success" +
-              (filter === "Completed" ? " active" : "")
-            }
-          >
-            Completed
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            onClick={() => setFilter("Cancelled")}
-            className={
-              "btn btn-outline-danger" +
-              (filter === "Cancelled" ? " active" : "")
-            }
-          >
-            Cancelled
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            onClick={() => setFilter("")}
-            className={
-              "btn btn-outline-secondary" + (filter === "" ? " active" : "")
-            }
-          >
-            All
-          </button>
-        </li>
-      </ul>
-      <div className="row">
-        <table className="table table-hover">
-          <tr>
-            <th>Task</th>
-            <th>Created</th>
-            <th>Due</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-
-          <tbody>
-            {list.map((item) => {
-              return (
-                <tr>
-                  <td>{item.description}</td>
-                  <td>{item.created}</td>
-                  <td>{item.duedate}</td>
-                  <td>{item.status}</td>
-                  <td>
-                    <button
-                      onClick={() => completeTask(item.id)}
-                      className="btn btn-outline-success"
-                    >
-                      <FontAwesomeIcon icon={faCheck}></FontAwesomeIcon>
-                    </button>
-                    <button
-                      onClick={() => cancelTask(item.id)}
-                      className="btn btn-outline-danger"
-                    >
-                      <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <AddBar
+        setNewItemDescription={setNewItemDescription}
+        addToList={addToList}
+      ></AddBar>
+      <FilterNav filter={filter} setFilter={setFilter}></FilterNav>
+      <TaskTable
+        list={list}
+        cancelTask={cancelTask}
+        completeTask={completeTask}
+      ></TaskTable>
     </div>
   );
 }
