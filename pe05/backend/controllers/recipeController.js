@@ -98,10 +98,98 @@ const deleteRecipe = asyncHandler(async (req, res) => {
   res.status(200).json(deleteRecipe);
 });
 
+//create an endpoint to seed the database
+//this is a POST request to API/RecipeS/seed
+const seed = asyncHandler(async (req, res) => {
+  //create an array of Recipes
+  // Sample seed data
+  const seedData = [
+    {
+      title: "Pancakes",
+      ingredients: [
+        { name: "Flour", amount: "1 cup" },
+        { name: "Milk", amount: "1/2 cup" },
+        { name: "Egg", amount: "1" },
+      ],
+      instructions: [
+        { step: "Mix all ingredients", stepNumber: 1 },
+        { step: "Pour into pan", stepNumber: 2 },
+        { step: "Flip when bubbles form", stepNumber: 3 },
+      ],
+    },
+    {
+      title: "Spaghetti Carbonara",
+      ingredients: [
+        { name: "Spaghetti", amount: "200g" },
+        { name: "Egg", amount: "2" },
+        { name: "Parmesan Cheese", amount: "1/2 cup" },
+        { name: "Pancetta", amount: "100g" },
+      ],
+      instructions: [
+        { step: "Boil spaghetti", stepNumber: 1 },
+        { step: "Fry pancetta", stepNumber: 2 },
+        { step: "Mix eggs and cheese", stepNumber: 3 },
+        { step: "Combine all", stepNumber: 4 },
+      ],
+    },
+    {
+      title: "Chicken Curry",
+      ingredients: [
+        { name: "Chicken", amount: "500g" },
+        { name: "Curry Paste", amount: "2 tbsp" },
+        { name: "Coconut Milk", amount: "1 can" },
+      ],
+      instructions: [
+        { step: "Fry chicken", stepNumber: 1 },
+        { step: "Add curry paste", stepNumber: 2 },
+        { step: "Add coconut milk", stepNumber: 3 },
+        { step: "Simmer until cooked", stepNumber: 4 },
+      ],
+    },
+    {
+      title: "Veggie Stir-Fry",
+      ingredients: [
+        { name: "Broccoli", amount: "1 cup" },
+        { name: "Carrot", amount: "1" },
+        { name: "Bell Pepper", amount: "1" },
+        { name: "Soy Sauce", amount: "2 tbsp" },
+      ],
+      instructions: [
+        { step: "Chop veggies", stepNumber: 1 },
+        { step: "Stir-fry veggies", stepNumber: 2 },
+        { step: "Add soy sauce", stepNumber: 3 },
+      ],
+    },
+    {
+      title: "Chocolate Chip Cookies",
+      ingredients: [
+        { name: "Flour", amount: "2 cups" },
+        { name: "Sugar", amount: "1 cup" },
+        { name: "Chocolate Chips", amount: "1 cup" },
+        { name: "Butter", amount: "1/2 cup" },
+      ],
+      instructions: [
+        { step: "Mix flour and sugar", stepNumber: 1 },
+        { step: "Add melted butter", stepNumber: 2 },
+        { step: "Add chocolate chips", stepNumber: 3 },
+        { step: "Bake at 350°F", stepNumber: 4 },
+      ],
+    },
+  ];
+  // Delete all existing recipes
+  await Recipe.deleteMany({});
+
+  // Insert the seed data
+  await Recipe.insertMany(seedData);
+
+  res.status(201).json({ message: "Seed data generated successfully" });
+});
+
 module.exports = {
   getRecipes,
   getRecipeById,
   createRecipe,
   updateRecipe,
   deleteRecipe,
+  seed,
 };

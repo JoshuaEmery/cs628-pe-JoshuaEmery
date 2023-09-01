@@ -9,6 +9,7 @@ const {
   createRecipe,
   updateRecipe,
   deleteRecipe,
+  seed,
 } = require("../controllers/recipeController");
 
 //setup the routes to use the controller
@@ -21,5 +22,8 @@ router.get("/:id", getRecipeById);
 router.put("/:id", updateRecipe);
 //delete by id
 router.delete("/:id", deleteRecipe);
+
+//seed endpoint
+router.post("/seed", seed);
 
 module.exports = router;
