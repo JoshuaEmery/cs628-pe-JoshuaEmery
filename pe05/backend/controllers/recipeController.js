@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 //this methods will be called by the router
 //import the model
 const Recipe = require("../models/recipeModel");
+const { default: mongoose } = require("mongoose");
 //this Model contains all of the built in Mongo methods for
 //crud operations
 
@@ -64,15 +65,31 @@ const updateRecipe = asyncHandler(async (req, res) => {
   }
   console.log(req.body);
   //find and update can be done in one step
-  const recipe = await Recipe.findByIdAndUpdate(
-    req.params.id,
-    {
-      title: req.body.title,
-      ingredients: req.body.ingredients,
-      instructions: req.body.instructions,
-    },
-    { new: true }
-  );
+  const newRecipe = {
+    title: req.body.title,
+    ingredients: req.body.ingredients,
+    instructions: req.body.instructions,
+  };
+  //The mongoose library can generate ids using mongoose.Types.ObjectId()
+  //iterate through ingredients and instructions
+  newRecipe.ingredients.map((ingredient) => {
+    if (!ingredient._id) {
+      ingredient._id = new mongoose.Types.ObjectId().toString();
+    }
+    return ingredient;
+  });
+  newRecipe.instructions.map((instruction) => {
+    if (!instruction._id) {
+      instruction._id = new mongoose.Types.ObjectId().toString();
+    }
+    return instruction;
+  });
+  console.log(newRecipe);
+  //use newRecipe to find and update the recipe
+  recipe = await Recipe.findByIdAndUpdate(req.params.id, newRecipe, {
+    new: true,
+    runValidators: true,
+  });
   res.status(200).json(recipe);
 });
 

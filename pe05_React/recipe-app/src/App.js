@@ -10,6 +10,7 @@ function App() {
     <>
       <Nav />
       <EditRecipe id={"64f6346d360267de5cbc31e9"} />
+      <CreateRecipe />
       <RecipeList />
     </>
   );
