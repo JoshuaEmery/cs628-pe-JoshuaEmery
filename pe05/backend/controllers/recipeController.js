@@ -62,6 +62,7 @@ const updateRecipe = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("name, amount, instructions, and ingredients are required");
   }
+  console.log(req.body);
   //find and update can be done in one step
   const recipe = await Recipe.findByIdAndUpdate(
     req.params.id,
