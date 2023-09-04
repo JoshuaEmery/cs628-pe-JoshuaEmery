@@ -37,22 +37,17 @@ const getRecipeById = asyncHandler(async (req, res) => {
 //POST API/RecipeS
 const createRecipe = asyncHandler(async (req, res) => {
   //checl for the following properties
-  if (
-    !req.body.name ||
-    !req.body.amount ||
-    !req.body.instructions ||
-    !req.body.ingredients
-  ) {
+  if (!req.body.title || !req.body.instructions || !req.body.ingredients) {
     res.status(400);
     throw new Error("name, amount, instructions, and ingredients are required");
   }
-  const Recipe = await Recipe.create({
-    name: req.body.name,
-    amount: req.body.amount,
+  console.log(req.body);
+  const recipe = await Recipe.create({
+    title: req.body.title,
     ingredients: req.body.ingredients,
     instructions: req.body.instructions,
   });
-  return res.status(201).json(Recipe);
+  return res.status(201).json(recipe);
 });
 
 //update Recipe
@@ -63,27 +58,21 @@ const updateRecipe = asyncHandler(async (req, res) => {
     throw new Error("id is required");
   }
   //checl for the following properties
-  if (
-    !req.body.name ||
-    !req.body.amount ||
-    !req.body.instructions ||
-    !req.body.ingredients
-  ) {
+  if (!req.body.title || !req.body.instructions || !req.body.ingredients) {
     res.status(400);
     throw new Error("name, amount, instructions, and ingredients are required");
   }
   //find and update can be done in one step
-  const Recipe = await Recipe.findByIdAndUpdate(
+  const recipe = await Recipe.findByIdAndUpdate(
     req.params.id,
     {
-      name: req.body.name,
-      amount: req.body.amount,
+      title: req.body.title,
       ingredients: req.body.ingredients,
       instructions: req.body.instructions,
     },
     { new: true }
   );
-  res.status(200).json(Recipe);
+  res.status(200).json(recipe);
 });
 
 //delete Recipe
